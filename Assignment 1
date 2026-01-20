@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darshan Patil | Professional Resume</title>
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- CSS -->
+    <style>
+:root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #1f2937;
+    --accent: #2563eb;
+
+    --skill-bg: #e5e7eb;
+    --skill-text: #1f2937;
+}
+
+body.dark {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #e5e7eb;
+
+    --skill-bg: #334155;
+    --skill-text: #f8fafc;
+}
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--card);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 25px;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            margin: 10px 0 5px;
+        }
+
+        .role {
+            color: gray;
+            margin-bottom: 15px;
+        }
+
+        .links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .links i {
+            margin-right: 6px;
+        }
+
+        .toggle-btn {
+            margin-top: 15px;
+            padding: 8px 16px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        section {
+            margin-top: 30px;
+        }
+
+        section h2 {
+            font-size: 22px;
+            border-bottom: 3px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .skills span {
+    display: inline-block;
+    margin: 8px 6px 0 0;
+    padding: 8px 16px;
+    background-color: var(--skill-bg);
+    color: var(--skill-text);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <img src="https://uploads.onecompiler.io/44b5crtmw/44b5cnzqw/1000092494.png" alt="Profile Photo" class="profile-img">
+
+            <h1>Darshan Patil</h1>
+            <p class="role">Aspiring Software Developer</p>
+
+            <div class="links">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=darshanpatilcollege@gmail.com" target="_blank">
+                  <i class="fa-solid fa-envelope"></i>Email
+                </a>
+
+                <a href="https://github.com/DARSHANPATIL1717" target="_blank">
+                    <i class="fa-brands fa-github"></i>GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/darshan-patil-b38aa4255?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                    <i class="fa-brands fa-linkedin"></i>LinkedIn
+                </a>
+            </div>
+
+            <button class="toggle-btn" onclick="toggleTheme()">
+                Toggle Dark Mode
+            </button>
+        </header>
+
+        <section>
+            <h2>Professional Summary</h2>
+            <p>
+                Motivated computer science student with hands-on experience in web
+                development and Python applications. Passionate about building clean,
+                scalable, and user-focused software solutions.
+            </p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <ul>
+                <li>Bachelor’s Degree – Walchand Institute Of Technology (2027)</li>
+                <li>Higher Secondary – Sharad Istitute Of Technology Polytechnic (Year)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <div class="skills">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Python</span>
+                <span>Git & GitHub</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+            <ul>
+                <li>Role-Based Question Answer System (Python)</li>
+                <li>Number Plate Detection System</li>
+                <li>Personal Resume Website</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Achievements</h2>
+            <ul>
+                <li>Built multiple academic and self-learning projects</li>
+                <li>Active content creator in gaming niche</li>
+            </ul>
+        </section>
+
+        <footer>
+            © 2026 Darshan Patil | Hosted on GitHub Pages
+        </footer>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+        }
+    </script>
+
+</body>
+</html>
