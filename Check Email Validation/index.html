@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Validation Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Validation Demo</h1>
+        <p class="subtitle">Explore email validation, password strength & browser storage</p>
+
+        <!-- Email Validation Section -->
+        <div class="card">
+            <h2>
+                <span class="icon">✉</span>
+                Email Validator
+            </h2>
+            <label for="email-input">Email Address</label>
+            <div class="input-wrapper">
+                <input type="text" id="email-input" placeholder="Enter your email">
+                <span class="validation-icon" id="email-icon"></span>
+            </div>
+            <p class="validation-message" id="email-message"></p>
+        </div>
+
+        <!-- Password Strength Section -->
+        <div class="card">
+            <h2>
+                <span class="icon">🔒</span>
+                Password Strength
+            </h2>
+            <label for="password-input">Password</label>
+            <div class="input-wrapper">
+                <input type="password" id="password-input" placeholder="Enter a password">
+                <span class="validation-icon" id="password-toggle" style="cursor: pointer; opacity: 1; user-select: none;">👁</span>
+            </div>
+            <div class="strength-bar">
+                <div class="strength-segment" id="seg-1"></div>
+                <div class="strength-segment" id="seg-2"></div>
+                <div class="strength-segment" id="seg-3"></div>
+                <div class="strength-segment" id="seg-4"></div>
+            </div>
+            <p class="strength-text" id="strength-text"></p>
+        </div>
+
+        <!-- Cookies & Sessions Section -->
+        <div class="card">
+            <h2>
+                <span class="icon">🍪</span>
+                Cookies & Session Storage
+            </h2>
+            <div class="btn-group">
+                <button class="btn-primary" id="read-cookies">Read Cookies</button>
+                <button class="btn-primary" id="read-session">Read Session Storage</button>
+                <button class="btn-secondary" id="set-demo-data">Set Demo Data</button>
+            </div>
+            <div class="output-area">
+                <div class="output-header">
+                    <span class="output-label">Output</span>
+                    <button class="btn-clear" id="clear-output">Clear</button>
+                </div>
+                <pre id="output"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
