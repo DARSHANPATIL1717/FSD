@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universities by Country</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0f0f1a;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00ff88;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8892b0;
+            margin-bottom: 32px;
+            font-size: 14px;
+        }
+
+        .input-section {
+            background: #1a1a2e;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 200px;
+            padding: 14px 18px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 16px;
+            background: #16213e;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        input[type="text"]::placeholder {
+            color: #8892b0;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #0f0f1a;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .table-container {
+            background: #1a1a2e;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #16213e, #1a1a2e);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #00ff88;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 16px;
+            border-top: 1px solid #16213e;
+            font-size: 14px;
+        }
+
+        tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .uni-name {
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .uni-domain {
+            color: #8892b0;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 13px;
+        }
+
+        .uni-link {
+            color: #00ff88;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .uni-link:hover {
+            color: #00d4ff;
+        }
+
+        .loading, .error, .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #8892b0;
+            font-size: 16px;
+        }
+
+        .error {
+            color: #ff4757;
+        }
+
+        .loading::after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        .count-badge {
+            display: inline-block;
+            background: #16213e;
+            color: #00ff88;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-family: 'Source Code Pro', monospace;
+            margin-bottom: 16px;
+        }
+
+        /* Scrollbar styling */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #16213e;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #00ff88;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            th, td {
+                padding: 12px 8px;
+                font-size: 13px;
+            }
+            
+            .uni-domain {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Universities by Country</h1>
+        <p class="subtitle">Enter a country name to view all universities</p>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <input type="text" id="country" placeholder="Enter country name (e.g., India, USA, UK)">
+                <button onclick="fetchUniversities()">Get Universities</button>
+            </div>
+        </div>
+
+        <div id="resultCount"></div>
+        
+        <div class="table-container">
+            <table id="universitiesTable">
+                <thead>
+                    <tr>
+                        <th>University Name</th>
+                        <th>Domains</th>
+                        <th>Web Pages</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody id="universitiesBody">
+                </tbody>
+            </table>
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        function fetchUniversities() {
+            const country = document.getElementById('country').value.trim();
+            const messageDiv = document.getElementById('message');
+            const tbody = document.getElementById('universitiesBody');
+            const countDiv = document.getElementById('resultCount');
+            
+            // Clear previous results
+            tbody.innerHTML = '';
+            countDiv.innerHTML = '';
+            
+            if (!country) {
+                messageDiv.innerHTML = '<div class="error">Please enter a country name</div>';
+                return;
+            }
+
+            messageDiv.innerHTML = '<div class="loading">Loading universities</div>';
+
+            // Using AJAX with XMLHttpRequest to get universities by country
+            // API: http://universities.hipolabs.com/search?country=India
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`, true);
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+                        messageDiv.innerHTML = '';
+                        
+                        if (!data || data.length === 0) {
+                            messageDiv.innerHTML = `<div class="no-data">No universities found for "${country}"</div>`;
+                            return;
+                        }
+
+                        // Show count
+                        countDiv.innerHTML = `<div class="count-badge">Found ${data.length} university/universities</div>`;
+
+                        data.forEach(uni => {
+                            const row = document.createElement('tr');
+                            
+                            // Get first domain or show N/A
+                            const domains = uni.domains && uni.domains.length > 0 
+                                ? uni.domains.join(', ') 
+                                : 'N/A';
+                            
+                            // Get first web page or show N/A
+                            const webPages = uni.web_pages && uni.web_pages.length > 0 
+                                ? uni.web_pages.map(page => `<a href="${page}" target="_blank" class="uni-link">${new URL(page).hostname}</a>`).join(', ')
+                                : 'N/A';
+                            
+                            row.innerHTML = `
+                                <td class="uni-name">${uni.name}</td>
+                                <td class="uni-domain">${domains}</td>
+                                <td>${webPages}</td>
+                                <td>${uni.country} ${uni['state-province'] ? ', ' + uni['state-province'] : ''}</td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        messageDiv.innerHTML = '<div class="error">Failed to fetch universities</div>';
+                    }
+                }
+            };
+            
+            xhr.send();
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('country').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchUniversities();
+            }
+        });
+    </script>
+</body>
+</html>
