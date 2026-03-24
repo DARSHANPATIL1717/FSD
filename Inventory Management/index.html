@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Inventory Management</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React and ReactDOM CDNs -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- Babel Standalone for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- All App Code Inline with Functional Buttons -->
+  <script type="text/babel">
+    // ProductList Component with State and Buy Functionality
+    function ProductList() {
+      const [products, setProducts] = React.useState([
+        { id: 1, name: "Laptop", price: 55000, stock: 10 },
+        { id: 2, name: "Keyboard", price: 1200, stock: 0 },
+        { id: 3, name: "Mouse", price: 600, stock: 8 }
+      ]);
+
+      const buyProduct = (id) => {
+        setProducts(prevProducts =>
+          prevProducts.map(product =>
+            product.id === id
+              ? { ...product, stock: Math.max(0, product.stock - 1) }
+              : product
+          )
+        );
+      };
+
+      return React.createElement('table', { className: 'table table-bordered text-center' },
+        React.createElement('thead', { className: 'table-dark' },
+          React.createElement('tr', null,
+            React.createElement('th', null, 'Name'),
+            React.createElement('th', null, 'Price (₹)'),
+            React.createElement('th', null, 'Stock'),
+            React.createElement('th', null, 'Status'),
+            React.createElement('th', null, 'Action')
+          )
+        ),
+        React.createElement('tbody', null,
+          products.map(product =>
+            React.createElement('tr', { key: product.id },
+              React.createElement('td', null, product.name),
+              React.createElement('td', null, product.price.toLocaleString()),
+              React.createElement('td', { className: 'fw-bold' }, product.stock),
+              React.createElement('td', null,
+                product.stock > 0
+                  ? React.createElement('span', { className: 'text-success fw-bold' }, 'In Stock')
+                  : React.createElement('span', { className: 'text-danger fw-bold' }, 'Out of Stock')
+              ),
+              React.createElement('td', null,
+                React.createElement('button', {
+                  className: `btn ${product.stock > 0 ? 'btn-success' : 'btn-secondary'}`,
+                  disabled: product.stock === 0,
+                  onClick: () => buyProduct(product.id)
+                },
+                  product.stock > 0 ? 'Buy' : 'Sold Out'
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+
+    // App Component
+    function App() {
+      return React.createElement('div', null,
+        React.createElement('nav', { className: 'navbar navbar-dark bg-primary' },
+          React.createElement('div', { className: 'container-fluid' },
+            React.createElement('span', { className: 'navbar-brand mb-0 h1' }, 'Product Inventory Management')
+          )
+        ),
+        React.createElement('div', { className: 'container mt-4' },
+          React.createElement(ProductList)
+        )
+      );
+    }
+
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
+  </script>
+</body>
+</html>
