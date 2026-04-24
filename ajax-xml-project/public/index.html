@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee XML Reader</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        button {
+            padding: 10px 24px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 900px;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f5ff;
+        }
+
+        #status {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .error {
+            color: #d32f2f;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Employee Records (XML via AJAX)</h1>
+    <button id="loadBtn">Load Employees</button>
+
+    <table id="empTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Start Date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody id="empBody">
+            <!-- Rows will be injected here -->
+        </tbody>
+    </table>
+
+    <p id="status"></p>
+
+    <script>
+        document.getElementById('loadBtn').addEventListener('click', loadEmployees);
+
+        function loadEmployees() {
+            const statusEl = document.getElementById('status');
+            const tbody = document.getElementById('empBody');
+            tbody.innerHTML = ''; // clear previous
+            statusEl.textContent = 'Loading...';
+            statusEl.className = '';
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'employees.xml', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const xmlDoc = xhr.responseXML;
+                        if (!xmlDoc) {
+                            statusEl.textContent = 'Failed to parse XML document.';
+                            statusEl.className = 'error';
+                            return;
+                        }
+
+                        const employees = xmlDoc.getElementsByTagName('employee');
+                        if (employees.length === 0) {
+                            statusEl.textContent = 'No employee records found.';
+                            return;
+                        }
+
+                        for (let i = 0; i < employees.length; i++) {
+                            const emp = employees[i];
+                            const id = getNodeText(emp, 'id');
+                            const name = getNodeText(emp, 'name');
+                            const dob = getNodeText(emp, 'dob');
+                            const startDate = getNodeText(emp, 'start-date');
+                            const salary = getNodeText(emp, 'salary');
+
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${dob}</td>
+                <td>${startDate}</td>
+                <td>${salary}</td>
+              `;
+                            tbody.appendChild(tr);
+                        }
+
+                        statusEl.textContent = `Loaded ${employees.length} employee(s) successfully.`;
+                    } else {
+                        statusEl.textContent = 'Error fetching XML. HTTP status: ' + xhr.status;
+                        statusEl.className = 'error';
+                    }
+                }
+            };
+
+            xhr.onerror = function () {
+                statusEl.textContent = 'Network error occurred while fetching XML.';
+                statusEl.className = 'error';
+            };
+
+            xhr.send();
+        }
+
+        function getNodeText(parent, tagName) {
+            const node = parent.getElementsByTagName(tagName)[0];
+            return node ? node.textContent : '';
+        }
+    </script>
+</body>
+
+</html>

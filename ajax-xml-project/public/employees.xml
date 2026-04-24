@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employees>
+  <employee>
+    <id>101</id>
+    <name>John Smith</name>
+    <dob>1985-03-15</dob>
+    <start-date>2020-01-10</start-date>
+    <salary>55000</salary>
+  </employee>
+  <employee>
+    <id>102</id>
+    <name>Emily Johnson</name>
+    <dob>1990-07-22</dob>
+    <start-date>2019-05-14</start-date>
+    <salary>62000</salary>
+  </employee>
+  <employee>
+    <id>103</id>
+    <name>Michael Brown</name>
+    <dob>1982-11-08</dob>
+    <start-date>2021-08-30</start-date>
+    <salary>48000</salary>
+  </employee>
+  <employee>
+    <id>104</id>
+    <name>Sarah Davis</name>
+    <dob>1995-04-02</dob>
+    <start-date>2022-02-18</start-date>
+    <salary>51000</salary>
+  </employee>
+  <employee>
+    <id>105</id>
+    <name>David Wilson</name>
+    <dob>1988-09-27</dob>
+    <start-date>2018-11-05</start-date>
+    <salary>75000</salary>
+  </employee>
+</employees>
+
